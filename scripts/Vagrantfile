@@ -15,6 +15,9 @@ Vagrant.configure("2") do |config|
   # Disable the default /vagrant share directory, as it shares the directory with the Vagrantfile in it, not the repo root
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
+  # Update package index
+  config.vm.provision "shell",
+    inline: "DEBIAN_FRONTEND=noninteractive sudo apt-get update"
 
   # Run provisioning scripts
   config.vm.provision "shell", path: "./setup-ubuntu.sh", privileged: false
